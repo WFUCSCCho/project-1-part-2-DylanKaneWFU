@@ -19,7 +19,7 @@ public class Parser {
         while (fileScnr.hasNextLine()) {
             String currLine = fileScnr.nextLine();
             lineScnr = new Scanner(currLine);
-            String[] commandPieces = new String[2];
+            String[] commandPieces = new String[10];
             int i = 0;
 
             while (lineScnr.hasNext()) {
@@ -42,22 +42,21 @@ public class Parser {
     // Implement the operate_BST method
     // Determine the incoming command and operate on the BST
     public void operate_BST(String[] command) throws FileNotFoundException {
-        DataObj currData = new DataObj();
-        int val;
+        String name;
         switch (command[0]) {
             case "insert":
-                val = Integer.parseInt(command[1]);
-                mybst.insert(val);
+                DataObj currData = new DataObj(command[1], Double.parseDouble(command[2]), Integer.parseInt(command[3]), Integer.parseInt(command[4]), command[5]);
+                mybst.insert(currData);
                 writeToFile("insert " + val, "./result.txt");
                 break;
             case "remove":
-                val = Integer.parseInt(command[1]);
-                if (mybst.remove(val)) writeToFile("removed " + val, "./result.txt");
+                name = (command[1]); //removing by name for now but if i need to remove by obj i'll do it
+                if (mybst.remove(name)) writeToFile("removed " + name, "./result.txt");
                 else writeToFile("remove failed", "./result.txt");
                 break;
             case "search":
-                val = Integer.parseInt(command[1]);
-                if (mybst.search(val, mybst.getRoot()) != null) writeToFile("found " + val, "./result.txt");
+                name = (command[1]);
+                if (mybst.search(name, mybst.getRoot()) != null) writeToFile("found " + name, "./result.txt");
                 else writeToFile("search failed", "./result.txt");
                 break;
             case "print":

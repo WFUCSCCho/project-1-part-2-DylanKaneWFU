@@ -50,6 +50,6 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>>{
         return this.val.compareTo(n.val);
     }
 
-    public boolean isLeaf() { return this.left == null && this.right == null; };
+    public boolean isLeaf() { return this.left == null && this.right == null; }
 
 }
