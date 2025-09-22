@@ -20,15 +20,13 @@ public class Parser {
             String currLine = fileScnr.nextLine();
             lineScnr = new Scanner(currLine);
             String[] commandPieces = new String[10];
-            int i = 0;
-
-            while (lineScnr.hasNext()) {
-                String curr = lineScnr.next();
-                if (curr != null) {
-                    commandPieces[i] = curr;
-                    i++;
-                }
+            String command = lineScnr.next();
+            if (command != null) {
+                commandPieces[0] = command;
+                if (lineScnr.hasNextLine())
+                    commandPieces[1] = lineScnr.nextLine();
             }
+
             if (commandPieces[0] != null) {
                 operate_BST(commandPieces);
             }
@@ -42,21 +40,53 @@ public class Parser {
     // Implement the operate_BST method
     // Determine the incoming command and operate on the BST
     public void operate_BST(String[] command) throws FileNotFoundException {
-        String name;
+        String[] objInfo;
+        DataObj currData;
+        if (command[0].equals("insert")
+            || command[0].equals("remove")
+            || command[0].equals("search")
+        ) {
+            objInfo = command[1].split(",");
+            currData = new DataObj(objInfo[0],
+                    Double.parseDouble(objInfo[1]),
+                    Integer.parseInt(objInfo[2]),
+                    Integer.parseInt(objInfo[3]),
+                    objInfo[4]
+            );
+        } else currData = null;
+
+
         switch (command[0]) {
             case "insert":
-                DataObj currData = new DataObj(command[1], Double.parseDouble(command[2]), Integer.parseInt(command[3]), Integer.parseInt(command[4]), command[5]);
-                mybst.insert(currData);
-                writeToFile("insert " + val, "./result.txt");
+                try {
+                    objInfo = command[1]
+                            .substring(1)
+                            .split(",");
+                    currData = new DataObj(objInfo[0],
+                            Double.parseDouble(objInfo[1]),
+                            Integer.parseInt(objInfo[2]),
+                            Integer.parseInt(objInfo[3]),
+                            objInfo[4]
+                    );
+                    mybst.insert(currData);
+                    writeToFile("insert " + currData, "./result.txt");
+                } catch (Exception e) { //added to handle invalid object inserts
+                    writeToFile("insert failed", "./result.txt");
+                }
                 break;
             case "remove":
-                name = (command[1]); //removing by name for now but if i need to remove by obj i'll do it
-                if (mybst.remove(name)) writeToFile("removed " + name, "./result.txt");
+                objInfo = command[1].split(",");
+                currData = new DataObj(objInfo[0],
+                        Double.parseDouble(objInfo[1]),
+                        Integer.parseInt(objInfo[2]),
+                        Integer.parseInt(objInfo[3]),
+                        objInfo[4]
+                );
+                if (mybst.remove(currData)) writeToFile("removed " + currData.name(), "./result.txt");
                 else writeToFile("remove failed", "./result.txt");
                 break;
             case "search":
-                name = (command[1]);
-                if (mybst.search(name, mybst.getRoot()) != null) writeToFile("found " + name, "./result.txt");
+                if (mybst.search(currData, mybst.getRoot()) != null) writeToFile("found " + currData.name(), "./result.txt");
                 else writeToFile("search failed", "./result.txt");
                 break;
             case "print":
@@ -66,7 +96,6 @@ public class Parser {
                 boolean empty = mybst.isEmpty();
                 writeToFile("" + empty, "./result.txt");
                 break;
-
             // default case for Invalid Command
             default:
                 writeToFile("Invalid Command", "./result.txt");
@@ -74,7 +103,9 @@ public class Parser {
     }
 
     public void writeToFile(String content, String filePath) throws FileNotFoundException {
-        PrintWriter fileWriter = new PrintWriter(new FileOutputStream(filePath, true));
+        PrintWriter fileWriter = new PrintWriter(
+                new FileOutputStream(filePath, true)
+        );
         fileWriter.println(content);
         fileWriter.flush();
         fileWriter.close();

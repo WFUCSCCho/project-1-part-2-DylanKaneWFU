@@ -1,25 +1,13 @@
-
-insert 111
-             insert 23
-
-insert 99
-insert         4
-
 isEmpty
-
-    insert     111
-
+insert Costa Coffee,256.99371499999995,0,277,Coffee
+insert Coffee Friend Brewed Coffee,250.19181000000003,0,145,Coffee
+insert Hell Energy Coffee,250.19181000000003,150,100,Coffee
+insert Killer Coffee (AU),250.19181000000003,0,430,Coffee
+insert Nescafe Gold,250.19181000000003,0,66,Coffee
+insert Espresso Monster,248.41740000000001,170,160,Coffee
+remove Nescafe Gold,250.19181000000003,0,66,Coffee
+remove Hell Energy Coffee,250.19181000000003,150,100,Coffee
 print
-
-
-search 9
-
-remove 23
-
-remove 4
-remove 999999
-isEmptyasfh
-print
-
-insert 123
-print
+search Nescafe Gold,250.19181000000003,0,66,Coffee
+search Killer Coffee (AU),250.19181000000003,0,430,Coffee
+isEmpty
