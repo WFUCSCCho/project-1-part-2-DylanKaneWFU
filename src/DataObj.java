@@ -29,6 +29,27 @@ public class DataObj implements Comparable<DataObj> {
         return this.volume;
     }
 
+    public int calories() {
+        return this.calories;
+    }
+
+    public String type() {
+        return this.type;
+    }
+
+    public String name() {
+        return this.name;
+    }
+
+    public boolean equals(DataObj o) {
+        return o.caffeine() == this.caffeine
+                && Math.abs(o.volume() - this.volume) < 0.0001
+                && o.name().equals(this.name)
+                && o.type().equals(this.type)
+                && o.calories() == (this.calories)
+                ;
+    }
+
     @Override
     public int compareTo(DataObj o) {
         //if caffeine amount is equal, compare volume
