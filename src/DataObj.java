@@ -21,33 +21,22 @@ public class DataObj implements Comparable<DataObj> {
         this.type = type;
     }
 
-    public int caffeine() {
-        return this.caffeine;
-    }
+    public int caffeine() { return this.caffeine; }
 
-    public double volume() {
-        return this.volume;
-    }
+    public double volume() { return this.volume; }
 
-    public int calories() {
-        return this.calories;
-    }
+    public int calories() { return this.calories; }
 
-    public String type() {
-        return this.type;
-    }
+    public String type() { return this.type; }
 
-    public String name() {
-        return this.name;
-    }
+    public String name() { return this.name; }
 
     public boolean equals(DataObj o) {
         return o.caffeine() == this.caffeine
                 && Math.abs(o.volume() - this.volume) < 0.0001
                 && o.name().equals(this.name)
                 && o.type().equals(this.type)
-                && o.calories() == (this.calories)
-                ;
+                && o.calories() == (this.calories);
     }
 
     @Override
