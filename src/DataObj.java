@@ -1,3 +1,10 @@
+/************************************************************************
+ * @file DataObj.java
+ * @brief This program implements java to create a Data Object Class to hold caffeine.csv records
+ * @author Dylan Kane
+ * @date September 25, 2025
+ *************************************************************************/
+
 public class DataObj implements Comparable<DataObj> {
     String name;
     Double volume;
@@ -6,6 +13,7 @@ public class DataObj implements Comparable<DataObj> {
     String type;
 
     public DataObj() {
+        //default constructor
         name = "None";
         volume = -1.0;
         calories = -1;
@@ -14,6 +22,7 @@ public class DataObj implements Comparable<DataObj> {
     }
 
     public DataObj(String name, double volume, int calories, int caffeine, String type) {
+        //fully parameterized constructor
         this.name = name;
         this.volume = volume;
         this.calories = calories;
@@ -21,6 +30,16 @@ public class DataObj implements Comparable<DataObj> {
         this.type = type;
     }
 
+    public DataObj(DataObj original) {
+        //copy constructor
+        this.name = original.name();
+        this.volume = original.volume();
+        this.calories = original.calories();
+        this.caffeine = original.caffeine();
+        this.type = original.type();
+    }
+
+    //get methods
     public int caffeine() { return this.caffeine; }
 
     public double volume() { return this.volume; }
@@ -31,9 +50,18 @@ public class DataObj implements Comparable<DataObj> {
 
     public String name() { return this.name; }
 
-    public boolean equals(DataObj o) {
+    @Override
+    public boolean equals(Object o) {
+        //returns true if identical to another data object
+        //first checks if they are of the same class
+        if (o.getClass() == this.getClass()) return checkValues((DataObj) o);
+        else return false;
+    }
+
+    private boolean checkValues(DataObj o) {
+        //helper method that checks the values before returning true or false
         return o.caffeine() == this.caffeine
-                && Math.abs(o.volume() - this.volume) < 0.0001
+                && Math.abs(o.volume() - this.volume) < 0.001
                 && o.name().equals(this.name)
                 && o.type().equals(this.type)
                 && o.calories() == (this.calories);
@@ -49,8 +77,9 @@ public class DataObj implements Comparable<DataObj> {
 
     @Override
     public String toString() {
+        //returns a string of its data
         return String.format(
-                "Name: %s, Volume: %f, Calories: %d, Caffeine: %d, Type: %s",
+                "\nName: %s\nVolume: %f\nCalories: %d\nCaffeine: %d\nType: %s\n\n",
                 this.name,
                 this.volume,
                 this.calories,

@@ -1,3 +1,10 @@
+/************************************************************************
+ * @file Parser.java
+ * @brief This program implements java to parse an input file
+ * @author Dylan Kane
+ * @date September 25, 2025
+ *************************************************************************/
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -19,12 +26,16 @@ public class Parser {
         while (fileScnr.hasNextLine()) {
             String currLine = fileScnr.nextLine();
             lineScnr = new Scanner(currLine);
-            String[] commandPieces = new String[10];
-            String command = lineScnr.next();
-            if (command != null) {
+            String[] commandPieces = new String[5];
+            String command;
+            if (!currLine.isEmpty()) {
+                command = lineScnr.next();
+                System.out.println(command);
                 commandPieces[0] = command;
-                if (lineScnr.hasNextLine())
-                    commandPieces[1] = lineScnr.nextLine();
+
+                if (lineScnr.hasNext())
+                    commandPieces[1] = lineScnr.next();
+                    System.out.println(commandPieces[1]);
             }
 
             if (commandPieces[0] != null) {
@@ -42,46 +53,41 @@ public class Parser {
     public void operate_BST(String[] command) throws FileNotFoundException {
         String[] objInfo;
         DataObj currData;
-        if (command[0].equals("insert")
+        if ((command[0].equals("insert")
             || command[0].equals("remove")
-            || command[0].equals("search")
+            || command[0].equals("search"))
         ) {
-            objInfo = command[1].split(",");
+            System.out.println("Debug " + command[1]);
+            //takes in user's val and reads dataset to get the desired object at that position
+            FileInputStream dataSetInputStream = new FileInputStream("src/caffeine.csv");
+            Scanner dataSetScnr = new Scanner(dataSetInputStream);
+            if (Integer.parseInt(command[1]) < 1 || Integer.parseInt(command[1]) > 610) { //checks if position is valid
+                writeToFile("Invalid Command", "./result.txt");
+                return;
+            }
+            String obj = dataSetScnr.nextLine(); //skip the header of caffeine.csv
+            for (int i = 0; i < Integer.parseInt(command[1]); i++) {
+                obj = dataSetScnr.nextLine();
+                System.out.println(obj);
+            }
+
+            objInfo = obj.split(","); //get info about dataset item at position
             currData = new DataObj(objInfo[0],
                     Double.parseDouble(objInfo[1]),
                     Integer.parseInt(objInfo[2]),
                     Integer.parseInt(objInfo[3]),
                     objInfo[4]
             );
+            System.out.println("Object: " + currData.toString());
+            dataSetScnr.close(); //close dataset file when done
         } else currData = null;
-
 
         switch (command[0]) {
             case "insert":
-                try {
-                    objInfo = command[1]
-                            .substring(1)
-                            .split(",");
-                    currData = new DataObj(objInfo[0],
-                            Double.parseDouble(objInfo[1]),
-                            Integer.parseInt(objInfo[2]),
-                            Integer.parseInt(objInfo[3]),
-                            objInfo[4]
-                    );
-                    mybst.insert(currData);
-                    writeToFile("insert " + currData, "./result.txt");
-                } catch (Exception e) { //added to handle invalid object inserts
-                    writeToFile("insert failed", "./result.txt");
-                }
+                mybst.insert(currData);
+                writeToFile("insert " + currData, "./result.txt");
                 break;
             case "remove":
-                objInfo = command[1].split(",");
-                currData = new DataObj(objInfo[0],
-                        Double.parseDouble(objInfo[1]),
-                        Integer.parseInt(objInfo[2]),
-                        Integer.parseInt(objInfo[3]),
-                        objInfo[4]
-                );
                 if (mybst.remove(currData)) writeToFile("removed " + currData.name(), "./result.txt");
                 else writeToFile("remove failed", "./result.txt");
                 break;

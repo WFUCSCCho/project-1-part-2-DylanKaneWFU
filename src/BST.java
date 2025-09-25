@@ -1,3 +1,10 @@
+/************************************************************************
+ * @file BST.java
+ * @brief This program implements java to create a BST class
+ * @author Dylan Kane
+ * @date September 25, 2025
+ *************************************************************************/
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -60,7 +67,7 @@ public class BST<E extends Comparable<E>> implements Iterator<E> {
         } else { //case 2: if nodes exist find where to place the new node
             Node<E> currNode = this.root;
             while (currNode != null) {
-                if (currNode.value().compareTo(val) == 0) break;
+                if (currNode.value().equals(val)) break; //exit if value is already in the tree
                 else if (currNode.value().compareTo(val) < 0) {
                     if (currNode.right() != null) currNode = currNode.right();
                     else {

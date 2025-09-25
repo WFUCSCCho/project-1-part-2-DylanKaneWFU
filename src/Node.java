@@ -1,3 +1,10 @@
+/************************************************************************
+ * @file Node.java
+ * @brief This program implements java to create a node class
+ * @author Dylan Kane
+ * @date September 25, 2025
+ *************************************************************************/
+
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>>{
     T val;
     Node<T> left;
@@ -29,9 +36,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>>{
         this.right = right;
     }
 
-    public void setValue(T val) {
-        this.val = val;
-    }
+    public void setValue(T val) { this.val = val; }
 
     public T value() {
         return this.val;
