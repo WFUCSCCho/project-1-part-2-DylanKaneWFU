@@ -1,25 +1,28 @@
-
-insert 111
-             insert 23
-
-insert 99
-insert         4
-
 isEmpty
-
-    insert     111
-
-print
+insert 1
 
 
-search 9
+      insert 2
+insert 6000
 
-remove 23
-
+ insert 5
+insert 10
+                print
+printieajlmvileajfbaejf
+    insert 4
 remove 4
-remove 999999
-isEmptyasfh
-print
+remove 400
+                remove 90
 
-insert 123
+
+
+
+insert 5
+insert 100
+
+                    search 900
+                                    insert 50
 print
+search 1
+search 2
+isEmpty
