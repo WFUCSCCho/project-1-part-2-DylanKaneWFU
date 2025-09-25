@@ -79,7 +79,7 @@ public class DataObj implements Comparable<DataObj> {
     public String toString() {
         //returns a string of its data
         return String.format(
-                "\nName: %s\nVolume: %f\nCalories: %d\nCaffeine: %d\nType: %s\n\n",
+                "\nName: %s\nVolume: %f\nCalories: %d\nCaffeine: %d\nType: %s\n",
                 this.name,
                 this.volume,
                 this.calories,

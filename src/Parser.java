@@ -92,6 +92,7 @@ public class Parser {
                 else writeToFile("search failed", "./result.txt");
                 break;
             case "print":
+                //prints in ascending order (caffeine levels)
                 writeToFile(mybst.inOrderIterator(), "./result.txt");
                 break;
             case "isEmpty":
