@@ -30,12 +30,11 @@ public class Parser {
             String command;
             if (!currLine.isEmpty()) {
                 command = lineScnr.next();
-                System.out.println(command);
                 commandPieces[0] = command;
 
-                if (lineScnr.hasNext())
+                if (lineScnr.hasNext()) {
                     commandPieces[1] = lineScnr.next();
-                    System.out.println(commandPieces[1]);
+                }
             }
 
             if (commandPieces[0] != null) {
@@ -57,9 +56,8 @@ public class Parser {
             || command[0].equals("remove")
             || command[0].equals("search"))
         ) {
-            System.out.println("Debug " + command[1]);
             //takes in user's val and reads dataset to get the desired object at that position
-            FileInputStream dataSetInputStream = new FileInputStream("src/caffeine.csv");
+            FileInputStream dataSetInputStream = new FileInputStream("caffeine.csv");
             Scanner dataSetScnr = new Scanner(dataSetInputStream);
             if (Integer.parseInt(command[1]) < 1 || Integer.parseInt(command[1]) > 610) { //checks if position is valid
                 writeToFile("Invalid Command", "./result.txt");
@@ -68,7 +66,6 @@ public class Parser {
             String obj = dataSetScnr.nextLine(); //skip the header of caffeine.csv
             for (int i = 0; i < Integer.parseInt(command[1]); i++) {
                 obj = dataSetScnr.nextLine();
-                System.out.println(obj);
             }
 
             objInfo = obj.split(","); //get info about dataset item at position
@@ -78,7 +75,6 @@ public class Parser {
                     Integer.parseInt(objInfo[3]),
                     objInfo[4]
             );
-            System.out.println("Object: " + currData.toString());
             dataSetScnr.close(); //close dataset file when done
         } else currData = null;
 
